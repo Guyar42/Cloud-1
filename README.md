@@ -10,10 +10,18 @@ Deployment of som applications on AWS with Ansible
   - cp ec2-key.pem ~/.ssh/
   - ssh-add ~/.ssh/ec2-key.pem
 
-Ansible modules:
-"ansible TheModules -m ModuleName -a theArguments"
+executer des taches ansible ponctuelle:
+- ansible TheModules -m ModuleName -a theArguments
 ex: ansbile webservers -m ping -a "name=bonjour"
 arguments ont la forme  key=value
+
+pour lancer des playbookansible sur mes serveurs:
+- ansible-playbook -i inventory.txt docker-compose-down.yml
+pour limiter lse serveurs sur les lesquellese j'exécute mon playbook, on uttilise l'option
+- --limit 'arguments'
+- ex: ansible-playbook -i inventory_file --limit 'server*' monPlaybook.yml
+
+
 
 Structure of Yaml
 <img width="1291" alt="Capture d’écran 2024-04-02 à 18 03 54" src="https://github.com/Guyar42/Cloud-1/assets/104376097/b123af12-0f73-4f88-abf2-7b728ab47093">
