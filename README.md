@@ -22,6 +22,8 @@ pour limiter lse serveurs sur les lesquellese j'exécute mon playbook, on uttili
 - ex: ansible-playbook -i inventory_file --limit 'server*' monPlaybook.yml
 
 
+pour lancer mon playbook creation d'instance:
+ansible-playbook playbooks/launch_instances.yml --ask-vault-pass
 
 Structure of Yaml
 <img width="1291" alt="Capture d’écran 2024-04-02 à 18 03 54" src="https://github.com/Guyar42/Cloud-1/assets/104376097/b123af12-0f73-4f88-abf2-7b728ab47093">
