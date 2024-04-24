@@ -25,6 +25,9 @@ pour limiter lse serveurs sur les lesquellese j'exécute mon playbook, on uttili
 pour lancer mon playbook creation d'instance:
 ansible-playbook playbooks/launch_instances.yml --ask-vault-pass
 
+activate virtual env for ansible on vm
+source /home/gokhan/.local/pipx/venvs/ansible/bin/activate
+
 Structure of Yaml
 <img width="1291" alt="Capture d’écran 2024-04-02 à 18 03 54" src="https://github.com/Guyar42/Cloud-1/assets/104376097/b123af12-0f73-4f88-abf2-7b728ab47093">
 <img width="1304" alt="Capture d’écran 2024-04-02 à 18 10 33" src="https://github.com/Guyar42/Cloud-1/assets/104376097/6d752d14-4b63-4d70-b704-470d173f180d">
