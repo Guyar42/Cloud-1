@@ -1,0 +1,15 @@
+---
+- name: Deploy WordPress container
+  become: true
+  community.general.docker_container:
+    name: wordpress
+    image: wordpress:latest
+    ports:
+      - "80:80"
+    env:
+      WORDPRESS_DB_HOST: "{{ hostvars[groups['mariadb_host'][0]].private_dns_name }}:3306"
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    state: started
+    restart_policy: always

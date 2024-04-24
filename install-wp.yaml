@@ -1,0 +1,21 @@
+- name: Deploy docker-compose on the ec2 servers
+  host: servers # server a trouver, all par defaut
+  become: yes
+  tasks:
+
+    - name: install docker and dependencies
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+  
+  - name: copy du fichier
+    copy:
+      src: docker-compose.yml
+      dest: /app/
+
+  - name: Construire et déployer Docker Compose
+    community.general.docker_compose:
+      project_src: /chemin/vers/votre/projet
+      state: present
+      build: yes

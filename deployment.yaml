@@ -1,0 +1,7 @@
+- hosts: #web_server
+  roles:
+      - role: install-wp
+  vars:
+      docker_compose_path: /etc/docker/
+  vars_files:
+      #- vars/scaleway_credentials.yml

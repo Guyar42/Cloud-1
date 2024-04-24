@@ -1,0 +1,86 @@
+- name: Create Security Group for WordPress
+  amazon.aws.ec2_group:
+    name: "WordPress-Security-Group"
+    description: "Security group for WordPress server"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: wordpress_security_group
+
+- name: Create Security Group for MariaDB
+  amazon.aws.ec2_group:
+    name: "MariaDB-Security-Group"
+    description: "Security group for MariaDB server"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 3306
+        to_port: 3306
+        group_id: "{{ wordpress_security_group.group_id }}"
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: mariadb_security_group
+
+- name: start wp instance
+  amazon.aws.ec2_instance:
+    name: "WordPress Server"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    key_name: "{{ key_name }}"
+    region: "{{ region }}"
+    instance_type: "{{ instance_type }}"
+    security_group: "{{ wordpress_security_group.group_id }}"
+    network:
+      assign_public_ip: true
+    image_id: "{{ image_id }}"
+    tags:
+      Environment: WordPress Server
+    state: started
+  register: wp_instance
+
+- name: start mariadb instance
+  amazon.aws.ec2_instance:
+    name: "MariaDB Server"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    key_name: "{{ key_name }}"
+    region: "{{ region }}"
+    instance_type: "{{ instance_type }}"
+    security_group: "{{ mariadb_security_group.group_id }}"
+    network:
+      assign_public_ip: true
+    image_id: "{{ image_id }}"
+    tags:
+      Environment: MariaDB Server
+    state: started
+  register: mariadb_instance
+
+
+# TODO ajouter un load balancer
+# TODO ajouter un groupe d'auto scaling
+---
+# TODO ajouter le tls
+# TODO faire un docker-compose pour les containers wp et mdb

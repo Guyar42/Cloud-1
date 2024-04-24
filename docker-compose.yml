@@ -1,0 +1,53 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - dockerwp
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - dockerwp
+
+  wordpress:
+      depends_on:
+        - db
+      image: wordpress:latest
+      volumes:
+        - wordpress_data:/var/www/html
+        - ./src:/var/www/html
+      ports:
+        - "8800:80"
+      restart: always
+      environment:
+        WORDPRESS_DB_HOST: db
+        WORDPRESS_DB_USER: wordpress
+        WORDPRESS_DB_PASSWORD: wordpress
+        WORDPRESS_DB_NAME: wordpress
+      networks:
+        - dockerwp
+
+networks:
+  dockerwp:
+volumes:
+  db_data: {}
+  wordpress_data: {}
+
+# TODO: change environement name with a script

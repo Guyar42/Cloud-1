@@ -1,0 +1,26 @@
+---
+- name: Setup EC2 environment
+  hosts: localhost
+  roles:
+    - launch_ec2
+
+- name : add wp and mdb on host
+  hosts: localhost
+  roles:
+    - add_host
+
+- name: Install Docker
+  hosts: wordpress_host:mariadb_host
+  become: true
+  roles:
+    - install_docker
+
+- name: Deploy MariaDB container
+  hosts: mariadb_host
+  roles:
+    - deploy_mdb
+
+- name: Deploy WordPress container
+  hosts: wordpress_host
+  roles:
+    - deploy_wp

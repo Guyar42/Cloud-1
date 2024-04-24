@@ -1,0 +1,15 @@
+---
+- name: Deploy MariaDB container
+  become: true
+  community.general.docker_container:
+    name: mariadb
+    image: mariadb:latest
+    env:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    ports:
+      - "3306:3306"
+    state: started
+    restart_policy: always

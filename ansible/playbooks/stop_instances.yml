@@ -1,0 +1,41 @@
+---
+- name: Stop EC2 instances for WordPress and MariaDB
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - ../../../vars/vars_file.yml
+
+  tasks:
+    - name: Stop WordPress EC2 instance
+      amazon.aws.ec2_instance:
+        aws_access_key_id: "{{ aws_access_key }}"
+        aws_secret_access_key: "{{ aws_secret_key }}"
+        region: "{{ region }}"
+        state: stopped
+        filters:
+          "tag:Name": "WordPress Server"
+        wait: yes
+      ignore_errors: yes
+      register: wp_stop_status
+
+    - name: Stop MariaDB EC2 instance
+      amazon.aws.ec2_instance:
+        aws_access_key_id: "{{ aws_access_key }}"
+        aws_secret_access_key: "{{ aws_secret_key }}"
+        region: "{{ region }}"
+        state: stopped
+        filters:
+          "tag:Name": "MariaDB Server"
+        wait: yes
+      ignore_errors: yes
+      register: mdb_stop_status
+
+    - name: Print state of WordPress instance
+      debug:
+        msg: "Attempt to stop WordPress Server instance completed."
+      when: wp_stop_status is defined
+
+    - name: Print state of MariaDB instance
+      debug:
+        msg: "Attempt to stop MariaDB Server instance completed."
+      when: mdb_stop_status is defined

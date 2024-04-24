@@ -1,0 +1,9 @@
+- name: Deploy docker-compose on the ec2 servers
+  hosts: servers # server a trouver, all par defaut
+  become: yes
+  tasks:
+  
+- name: Lancer docker-compose up
+  command: /usr/local/bin/docker-compose down
+  args:
+    chdir: /app/
