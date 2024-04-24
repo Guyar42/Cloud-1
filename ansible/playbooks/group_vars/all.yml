@@ -1,6 +1,6 @@
 aws_access_key:
 aws_secret_key:
-key_name: "key-cloud1"
+key_name:
 region: "eu-north-1"
 image_id: "ami-01dad638e8f31ab9a"  # Utilisez l'AMI appropriée pour votre région et OS
 instance_type: "t3.micro"
