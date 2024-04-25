@@ -32,3 +32,5 @@ Structure of Yaml
 <img width="1291" alt="Capture d’écran 2024-04-02 à 18 03 54" src="https://github.com/Guyar42/Cloud-1/assets/104376097/b123af12-0f73-4f88-abf2-7b728ab47093">
 <img width="1304" alt="Capture d’écran 2024-04-02 à 18 10 33" src="https://github.com/Guyar42/Cloud-1/assets/104376097/6d752d14-4b63-4d70-b704-470d173f180d">
 <img width="1268" alt="Capture d’écran 2024-04-02 à 18 19 27" src="https://github.com/Guyar42/Cloud-1/assets/104376097/8e45fde2-7bf9-460c-b397-eb9f7e0aaa6e">
+
+![cloud1](https://github.com/Guyar42/Cloud-1/assets/104376097/6f116ba1-5c95-4c82-9991-c6c5906fdad7)
