@@ -81,6 +81,5 @@
 
 # TODO ajouter un load balancer
 # TODO ajouter un groupe d'auto scaling
----
 # TODO ajouter le tls
 # TODO faire un docker-compose pour les containers wp et mdb
