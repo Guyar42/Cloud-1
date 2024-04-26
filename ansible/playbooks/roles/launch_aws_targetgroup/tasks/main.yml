@@ -1,0 +1,23 @@
+---
+# tasks file for launc_elb
+
+- name: Create a target group with IP address targets
+  community.aws.elb_target_group:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: wp_tg
+    protocol: http
+    port: 80
+    vpc_id: "{{ wp_instance.instances[0].vpc_id }}"
+    health_check_protocol: http
+    health_check_path: /
+    successful_response_codes: "200"
+    target_type: ip
+    targets:
+      - Id: "{{ wp_instance.instances[0].private_ip_address}}"
+        Port: 80
+        AvailabilityZone: "{{ region }}"
+    state: present
+    wait_timeout: 200
+    wait: true
+  register: wp_tg

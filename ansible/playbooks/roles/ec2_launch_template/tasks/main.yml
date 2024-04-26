@@ -1,0 +1,12 @@
+---
+# tasks file for ec2_launch_template
+- name: Create an ec2 wp launch template
+  ec2_launch_template:
+    name: "wp_template"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    image_id: " {{ wp_ami.image_id }}"
+    key_name: "{{ key_name }}"
+    instance_type: "{{ instance_type }}"
+    # iam_instance_profile: myTestProfile
+    # disable_api_termination: true

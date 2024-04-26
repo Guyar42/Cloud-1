@@ -1,0 +1,24 @@
+---
+# tasks file for ec2_ami
+
+# - name: get info from wp instance
+#   amazon.aws.ec2_instance_info:
+#     aws_access_key: "{{ aws_access_key }}"
+#     aws_secret_key: "{{ aws_secret_key }}"
+#     region: "{{ region }}"
+#     filters:
+#       "tag:Name": WordPress Server
+#   register: wp_instance
+
+- name: Create AMI from wp instance
+  amazon.aws.ec2_ami:
+    aws_access_key: "{{ aws_access_key }}"
+    # aws_secret_key: "{{ aws_secret_key }}"
+    region: "{{ region }}"
+    instance_id: "{{ wp_instance.instances[0].instance_id }}"
+    wait: true
+    name: wp-ami
+    tags:
+      Name: wp-ami
+      Service: WordPress Server
+  register: wp-ami

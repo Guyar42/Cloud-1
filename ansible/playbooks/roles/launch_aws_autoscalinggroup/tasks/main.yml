@@ -1,0 +1,17 @@
+---
+# tasks file for launch_asg
+-name: launch aws scaling group with launch template
+- amazon.aws.autoscaling_group:
+    name: wp autoscaling group
+    load_balancers: ['wp_lb']
+    availability_zones: [ "{{ region }}" ]
+    launch_template:
+      # version: '1'
+      launch_template_name: 'wp_template'
+      # launch_template_id: 'lt-123456'
+    min_size: 1
+    max_size: 3
+    desired_capacity: 1
+    # vpc_zone_identifier: ['subnet-abcd1234', 'subnet-1a2b3c4d']
+    tags:
+      - environment: Wordpress server
