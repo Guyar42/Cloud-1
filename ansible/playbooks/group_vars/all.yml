@@ -1,5 +1,5 @@
-aws_access_key: "AKIA3FLD5QA6EWRTHNGM"
-aws_secret_key: "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"
+aws_access_key: ""
+aws_secret_key: ""
 key_name: "cloud1"
 region: "eu-north-1"
 image_id: "ami-01dad638e8f31ab9a"  # Utilisez l'AMI appropriée pour votre région et OS
